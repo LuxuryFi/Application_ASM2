@@ -1,9 +1,29 @@
-{{>header}}
+{{#extend "layout" foo="bar"}}
 
-<h2>Index</h2>
+     {{#content "head" mode="prepend"}}
+       <title>day la title</title>
+    {{/content}}
 
-{{>main}}
+    {{#content "title" mode="prepend"}}Example - {{/content}}
+
+     {{#content "header" mode="prepend"}}
+        <h2>prepend header</h2>
+    {{/content}}
+
+    {{#content "body" mode="prepend"}}
+        <h2>prepend body</h2>
+    {{/content}}
 
 
+    {{#content "body" mode="append"}}
+        <h2>append body</h2>
+    {{/content}}
 
-{{>footer}}
+     {{#content "footer" mode="prepend"}}
+        <h2>Prepend footer</h2>
+    {{/content}}
+
+      {{#content "footer" mode="append"}}
+        <h2>Append footer</h2>
+    {{/content}}
+{{/extend}}
