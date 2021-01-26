@@ -36,6 +36,8 @@
     "fastify": "^3.10.1",
     "fastify-static": "^3.4.0",
     "handlebars": "^4.7.6",
+    "handlebars-layouts": "^3.1.4",
+    "hbs": "^4.1.1",
     "mysql": "^2.18.1",
     "point-of-view": "^4.8.0",
     "reflect-metadata": "^0.1.13",
