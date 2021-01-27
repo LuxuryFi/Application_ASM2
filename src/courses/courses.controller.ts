@@ -16,9 +16,7 @@ export class CoursesController {
 
     @Render('courses/create.hbs')
     @Get('create')
-    create() {
-
-    }
+    create() {}
 
     @Post('createOne')
     createOne(@Body() createCourse : CreateCourseDto, @Res() res){
