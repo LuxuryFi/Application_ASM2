@@ -2,30 +2,18 @@
 
 {{#content "body" mode="append"}}
         <h2>prepend body</h2>
-        <form action="" method="POST">
-            <div class="form-group">
-                <label for="">Ho</label>
-                <input type="text" class="form-control" class="name">
-            </div>
-             <div class="form-group">
-                <label for="">He</label>
-                <input type="text" class="form-control" class="name">
+        <form action="createOne" method="POST">
+            <div class="mb-3">
+                <label for="">Course Name</label>
+                <input type="text" class="form-control" name="course_name">
             </div>
              <div class="mb-3">
-                <label for="">Ha</label>
-                <input type="text" class="form-control" class="name">
+                <label for="">Course Description</label>
+                <input type="text" class="form-control" name="course_description">
             </div>
-             <div class="mb-3">
-                <label for="">He</label>
-                <input type="text" class="form-control" class="name">
-            </div>
-             <div class="mb-3">
-                <label for="">Hi</label>
-                <input type="text" class="form-control" class="name">
-            </div>
-             <div class="mb-3">
-               <input type="submit" class="btn btn-primary">
-               <input type="reset" class="btn btn-danger">
+            <div class="fmb-3">
+                <input type="submit" value="Create" class="btn btn-primary">
+                <input type="reset" value="Reset" class="btn btn-danger">
             </div>
         </form>
 {{/content}}

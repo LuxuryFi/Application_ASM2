@@ -9,9 +9,10 @@ import { CourseDetailModule } from './course-detail/course-detail.module';
 import { StaffsModule } from './staffs/staffs.module';
 import { AdminModule } from './admin/admin.module';
 import { TraineesModule } from './trainees/trainees.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [CategoriesModule, CoursesModule, TopicsModule, TrainersModule, CourseDetailModule, StaffsModule, AdminModule, TraineesModule],
+  imports: [CategoriesModule, CoursesModule, TopicsModule, TrainersModule, CourseDetailModule, StaffsModule, AdminModule, TraineesModule,TypeOrmModule.forRoot() ],
   controllers: [AppController],
   providers: [AppService],
 })

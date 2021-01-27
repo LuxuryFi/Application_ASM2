@@ -1,0 +1,21 @@
+{{#extend "layout"}}
+
+{{#content "body" mode="append"}}
+        <h2>prepend body</h2>
+        <form action="" method="POST">
+            <div class="mb-3">
+                <label for="">Course Name</label>
+                <input type="text" class="form-control" value="{{{course.course_name}}}" class="course_name">
+            </div>
+             <div class="mb-3">
+                <label for="">Course Description</label>
+                <input type="text" class="form-control" value="{{{course.course_name}}}" class="course_description">
+            </div>
+            <div class="fmb-3">
+                <input type="submit" value="Create" class="btn btn-primary">
+                <input type="reset" value="Reset" class="btn btn-danger">
+            </div>
+        </form>
+{{/content}}
+
+{{/extend}}
