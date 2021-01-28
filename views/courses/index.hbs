@@ -4,7 +4,25 @@
         <table class="table table-bordered">
             <tr>
                 <th>Course ID</th>
+                <th>Course Name</th>
+                <th>Course Description</th>
+                <th>Status</th>
+                <th></th>
             </tr>
+            {{#each courses}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{course_name}}</td>
+                <td>{{course_description}}</td>
+                <td>{{is_active}}</td>
+                <td>
+                    <a href="/courses/detail?id={{id}}"><i class="fa fa-eye"></i></a>
+                    <a href="/courses/delete?id={{id}}"><i class="fa fa-trash"></i></a>
+                    <a href="/courses/update?id={{id}}"><i class="fa fa-pen"></i></a>
+                </td>
+            </tr>
+
+            {{/each}}
         </table>
     {{/content}}
 

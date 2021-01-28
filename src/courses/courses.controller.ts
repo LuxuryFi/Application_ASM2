@@ -1,7 +1,8 @@
-import { Body, Controller, Get, Post, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query, Render, Res } from '@nestjs/common';
 import { Course } from 'src/database/entities/course.entity';
 import { CoursesService } from './courses.service';
 import { CreateCourseDto } from './dto/create-course.dto';
+import { UpdateCourseDto } from './dto/update-course.dto';
 
 @Controller('courses')
 export class CoursesController {
@@ -9,10 +10,10 @@ export class CoursesController {
 
     @Render('courses/index.hbs')
     @Get('index')
-    async getAll(): Promise<Course[]>{
-        return await this.courseService.findAll();
+    async getAll(){
+        let courses = await this.courseService.findAll();
+        return {courses: courses};
     }
-
 
     @Render('courses/create.hbs')
     @Get('create')
@@ -21,9 +22,38 @@ export class CoursesController {
     @Post('createOne')
     createOne(@Body() createCourse : CreateCourseDto, @Res() res){
         this.courseService.createOne(createCourse);
+        console.log(createCourse);
         res.status(302).redirect('/courses/index')
     }
 
+    @Render('courses/update.hbs')
+    @Get('update')
+    async update(@Query() query){
+        let course = await this.courseService.findOne(query.id);
+        if (course.is_active == 1) return {course : course, active: 'selected', disable: ''};
+        return {course : course,active: '', disable: 'selected'};
+    }
+
+    @Post('updateOne')
+    updateOne(@Body() updateCourse : UpdateCourseDto, @Res() res){
+        this.courseService.updateOne(updateCourse);
+        console.log(updateCourse);
+        res.status(302).redirect('/courses/index')
+    }
+
+    @Render('courses/detail.hbs')
+    @Get('detail')
+    async detail(@Query() query){
+        let course = await this.courseService.findOne(query.id);
+        if (course.is_active == 1) return {course : course, active: 'selected', disable: ''};
+        return {course : course,active: '', disable: 'selected'};
+    }
+
+    @Get('delete')
+    delete(@Query() query, @Res() res){
+        this.courseService.deleteOne(query.id);
+        res.status(302).redirect('/courses/index')
+    }
     
 
 }

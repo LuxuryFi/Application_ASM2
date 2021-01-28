@@ -6,7 +6,7 @@ export class Base {
     id: number;
 
     @Column()
-    is_active: boolean;
+    is_active: number;
 
     @CreateDateColumn()
     created_at: Date;

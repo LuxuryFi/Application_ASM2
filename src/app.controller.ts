@@ -4,9 +4,9 @@ import { AppService } from './app.service';
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
-  @Render('courses/create.hbs')
+  @Render('index.hbs')
   @Get()
-  getHello():string {
-    return this.appService.getHello();
+  getHello() {
+    
   }
 }
