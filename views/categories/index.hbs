@@ -1,0 +1,31 @@
+{{#extend "layout"}}
+
+    {{#content "body"}}
+    <br>
+        <a href="/categories/create" class="btn btn-primary"> <i class="fa fa-plus"></i> New Category</a>
+        <br><br>
+        <table class="table table-bordered">
+            <tr>
+                <th>Category ID</th>
+                <th>Category Name</th>
+                <th>Category Description</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+            {{#each categories}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{category_name}}</td>
+                <td>{{category_description}}</td>
+                <td>{{is_active}}</td>
+                <td>
+                    <a href="/categories/detail?id={{id}}"><i class="fa fa-eye"></i></a>
+                    <a href="/categories/delete?id={{id}}"><i class="fa fa-trash"></i></a>
+                    <a href="/categories/update?id={{id}}"><i class="fa fa-pen"></i></a>
+                </td>
+            </tr>
+            {{/each}}
+        </table>
+    {{/content}}
+
+{{/extend}}

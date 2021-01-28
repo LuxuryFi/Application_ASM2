@@ -1,0 +1,28 @@
+{{#extend "layout"}}
+    
+    {{#content "body" mode="append"}}
+    <h1>Create new Category</h1>
+    <br>
+        <form action="/categories/create" method="POST">
+            <div class="mb-3">
+                <label for="">Category Name</label>
+                <input type="text" class="form-control" name="category_name">
+            </div>
+             <div class="mb-3">
+                <label for="">Category  Description</label>
+                <input type="text" class="form-control" name="category_description">
+            </div>
+            <div class="mb-3">
+                <label for="">Category  Status</label>
+                <select name="is_active" id="" class="form-control">
+                    <option selected value="1">Active</option>
+                    <option value="0">Disable</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Create" class="btn btn-primary">
+                <input type="reset" value="Reset" class="btn btn-danger">
+            </div>
+        </form>
+    {{/content}}
+{{/extend}}

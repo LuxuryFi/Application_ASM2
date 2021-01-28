@@ -19,7 +19,7 @@ export class CoursesController {
     @Get('create')
     create() {}
 
-    @Post('createOne')
+    @Post('create')
     createOne(@Body() createCourse : CreateCourseDto, @Res() res){
         this.courseService.createOne(createCourse);
         console.log(createCourse);
@@ -34,7 +34,7 @@ export class CoursesController {
         return {course : course,active: '', disable: 'selected'};
     }
 
-    @Post('updateOne')
+    @Post('update')
     updateOne(@Body() updateCourse : UpdateCourseDto, @Res() res){
         this.courseService.updateOne(updateCourse);
         console.log(updateCourse);
