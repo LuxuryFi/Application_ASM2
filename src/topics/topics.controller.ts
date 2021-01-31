@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post, Query, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Query, Render, Res, ValidationPipe } from '@nestjs/common';
 import { query } from 'express';
+import { join } from 'path';
 import { getegid } from 'process';
 import { Topic } from 'src/database/entities/topic.entity';
 import { CreateTopicDto } from './dto/create-topic.dto';
@@ -10,7 +11,7 @@ import { TopicsService } from './topics.service';
 export class TopicsController {
     constructor(private readonly topicsService : TopicsService){}
 
-    @Render('topics/index.hbs')
+    @Render('/topics/index.hbs')
     @Get('index')
     async index()  {
         let topics =  await this.topicsService.findAll()
@@ -23,9 +24,16 @@ export class TopicsController {
 
     @Render('topics/create.hbs')
     @Post('create')
-    async createOne(@Body() createTopic : CreateTopicDto, @Res() res){
-        this.topicsService.createOne(createTopic);
-        res.status(302).redirect('/topics/index');
+    async createOne(@Body(ValidationPipe) createTopic : CreateTopicDto,  @Res() res){
+        try {
+           this.topicsService.createOne(createTopic)
+            res.status(302).redirect('/topics/index');
+        } catch(err) {
+            console.log(new HttpException({
+                message: err.message
+              }, HttpStatus.BAD_REQUEST));
+        };
+
     }
 
     @Render('topics/update.hbs')

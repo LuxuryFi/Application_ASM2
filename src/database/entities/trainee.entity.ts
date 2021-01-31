@@ -19,5 +19,8 @@ export class Trainee extends Base {
     trainee_address: string
 
     @Column()
+    avatar: string
+
+    @Column()
     password: string
 }

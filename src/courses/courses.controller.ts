@@ -20,9 +20,8 @@ export class CoursesController {
     create() {}
 
     @Post('create')
-    createOne(@Body() createCourse : CreateCourseDto, @Res() res){
-        this.courseService.createOne(createCourse);
-        console.log(createCourse);
+    async createOne(@Body() createCourse : CreateCourseDto, @Res() res){
+        await this.courseService.createOne(createCourse);
         res.status(302).redirect('/courses/index')
     }
 

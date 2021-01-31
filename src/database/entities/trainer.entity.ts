@@ -19,5 +19,10 @@ export class Trainer extends Base {
     trainer_address: string
 
     @Column()
+    avatar: string
+
+    @Column()
     password: string
+
+    
 }

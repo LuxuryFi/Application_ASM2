@@ -1,6 +1,8 @@
 {{#extend "layout"}}
     
     {{#content "body" mode="append"}}
+    <h2>Create New Topic </h2>
+    <h2>{{message}}</h2>
         <form action="/topics/create" method="POST">
             <div class="mb-3">
                 <label for="">Topic Name</label>
@@ -25,7 +27,7 @@
                     <option value="0">Disable</option>
                 </select>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary">
                 <input type="reset" value="Reset" class="btn btn-danger">
             </div>

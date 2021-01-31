@@ -1,6 +1,7 @@
 {{#extend "layout"}}
     
     {{#content "body" mode="append"}}
+    <h2>Update Topic {{topic.id}} - {{topic.topic_name}}</h2>
         <form action="/topics/update" method="POST">
             <div class="mb-3">
                 <label for="">Topic Name</label>

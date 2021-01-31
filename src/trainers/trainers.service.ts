@@ -3,13 +3,17 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Trainer } from 'src/database/entities/trainer.entity';
 import { CreateTopicDto } from 'src/topics/dto/create-topic.dto';
 import { Repository, UpdateResult } from 'typeorm';
+import { CreateTrainerDto } from './dto/create-trainer.dto';
 import { UpdateTrainerDto } from './dto/update-trainer.dto';
 
 @Injectable()
 export class TrainersService {
+    updateOne(updateTrainer: UpdateTrainerDto) {
+        throw new Error('Method not implemented.');
+    }
     constructor(@InjectRepository(Trainer) private trainerRepository: Repository<Trainer>){}
 
-    async create(createTrainer : CreateTopicDto) : Promise<void> {
+    async create(createTrainer : CreateTrainerDto) : Promise<void> {
         let trainer = await this.trainerRepository.create(createTrainer);
         await this.trainerRepository.save(trainer);
     }
@@ -30,7 +34,8 @@ export class TrainersService {
                 trainer_firstname: updateTrainer.trainer_firstname,
                 trainer_lastname: updateTrainer.trainer_lastname,
                 trainer_email: updateTrainer.trainer_email,
-                trainer_phone: updateTrainer.trainer_phone
+                trainer_phone: updateTrainer.trainer_phone,
+                avatar: updateTrainer.avatar
             }
         )
     }
@@ -38,4 +43,7 @@ export class TrainersService {
     async delete(id:number) : Promise<void> {
         await this.trainerRepository.delete(id);
     }
+
+    
+
 }
