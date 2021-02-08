@@ -9,10 +9,10 @@
         "dist/**/*.entity.{ts,js}"
     ],
     "migrations": [
-        "src/database/migrations/**/*.ts"
+        "src/migrations/**/*.ts"
     ],
     "cli": {
-        "migrationsDir": "src/database/migrations"
+        "migrationsDir": "src/migrations"
     },
     "synchronize": false,
     "autoLoadEntities":true

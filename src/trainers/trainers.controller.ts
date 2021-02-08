@@ -65,12 +65,13 @@ export class TrainersController {
     async updateOne(@Res() res, @Req() req) {
         const files = await req.saveRequestFiles();
         const data = files[0].fields;
-        let avatar = '';
-        const destination = path.join(__dirname + '/..' + '/../', 'public/uploads/trainers/', files[0].filename);
         const tmp_file = files[0].filepath;
-       
+        const destination = path.join(__dirname + '/..' + '/../', 'public/uploads/trainers/', files[0].filename);
+        
+        let avatar = '';
         try {
             avatar = files[0].filename;
+            
             let old_image = path.join(__dirname + '/..' + '/../', 'public/uploads/trainers/', data.old_image.value);
             if (!files[0].filename) avatar = data.old_image.value;
             else {
@@ -97,10 +98,7 @@ export class TrainersController {
         } catch (error) {
             throw error.message;
         }
-       
     }
-
-
 
     @Get('delete')
     async deleteOne(@Query() query, @Res() res) {

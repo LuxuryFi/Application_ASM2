@@ -24,5 +24,6 @@ export class Trainer extends Base {
     @Column()
     password: string
 
-    
+    @Column({default:2})
+    role_id: number
 }
