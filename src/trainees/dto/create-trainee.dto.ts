@@ -1,5 +1,4 @@
 export class CreateTraineeDto {
-    id: number
     
     trainee_firstname: string
 
