@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import {FastifyAdapter, NestFastifyApplication} from '@nestjs/platform-fastify'
+import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { join } from 'path';
 import * as handlebars from 'handlebars';
 ;
@@ -14,10 +14,10 @@ async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
   fastifyAdapter.register(require('fastify-multipart'))
 
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule,fastifyAdapter,);
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, fastifyAdapter,);
 
   app.useStaticAssets({
-    root: join(__dirname, '..',  'public'),
+    root: join(__dirname, '..', 'public'),
     prefix: '/public/',
   })
 
@@ -28,14 +28,24 @@ async function bootstrap() {
     templates: join(__dirname, '..', 'views'),
   });
 
+  handlebars.registerHelper('selected', function (options, value) {
+    if (options == value) {
+      return ' selected';
+    } else {
+      return ''
+    }
+  })
 
-  handlebars.registerPartial('layout',handlebars.compile(fs.readFileSync(join(__dirname, '..', 'views/layouts.hbs'), 'utf-8')));
+
+
+
+  handlebars.registerPartial('layout', handlebars.compile(fs.readFileSync(join(__dirname, '..', 'views/layouts.hbs'), 'utf-8')));
 
   handlebars.registerHelper(layouts(handlebars));
 
- // hbs.registerPartial(join(__dirname, "../", "/views/partials"));
+  // hbs.registerPartial(join(__dirname, "../", "/views/partials"));
   //app.useGlobalPipes(new ValidationPipe({
-//  }));
-  await app.listen(3000 , '0.0.0.0');
+  //  }));
+  await app.listen(3000, '0.0.0.0');
 }
 bootstrap();

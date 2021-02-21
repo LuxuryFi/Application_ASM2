@@ -13,6 +13,16 @@
             </div>
             <input type="hidden" name="id" value="{{course.id}}">
             <div class="mb-3">
+                <label for="">Category</label>
+                <select name="category_id" id="" class="form-control">
+                     {{#each categories}}
+                        <option value="{{id}}" {{selected id ../course.category_id}}>{{category_name}}</option>
+                     {{/each}}
+                </select>
+               
+             
+            </div>
+            <div class="mb-3">
                 <label for="">Course Status</label>
                 <select name="is_active" id="" class="form-control">
                     <option value="1" {{active}}>Active</option>

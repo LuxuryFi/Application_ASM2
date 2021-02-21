@@ -19,6 +19,14 @@
                 </select>
             </div>
             <div class="mb-3">
+                <label for="">Category</label>
+                <select name="category_id" id="" class="form-control">
+                    {{#each categories}}
+                        <option value="{{id}}">{{category_name}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary">
                 <input type="reset" value="Reset" class="btn btn-danger">
             </div>
