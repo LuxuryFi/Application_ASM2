@@ -27,6 +27,7 @@ export class StaffsController {
         const files = await req.saveRequestFiles();
         const destination = path.join(__dirname , '/../' , '/../', 'public/uploads/staffs/', files[0].filename);
 
+        
         try {
             const data = files[0].fields;
             let createStaff = new CreateStaffDto(

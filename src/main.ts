@@ -36,6 +36,14 @@ async function bootstrap() {
     }
   })
 
+  handlebars.registerHelper('printTrainer', function(id, check) {
+    check.forEach(element => {
+       if (id == element.trainer_id){
+        return check.trainer.element_firstname + ' ' + element.trainer.trainer_lastname
+      }
+    });
+    return '';
+ });
 
 
 

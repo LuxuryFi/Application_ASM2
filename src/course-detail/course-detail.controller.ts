@@ -45,7 +45,7 @@ export class CourseDetailController {
     @Get('detail')
     async detail(@Query() query){
         let course_detail = await this.detailService.findOne(query.course_id,query.topic_id,query.trainer_id);
-
+        
         return {course_detail: course_detail}
     }
 
@@ -72,8 +72,6 @@ export class CourseDetailController {
         await this.detailService.delete(query.course_id,query.topic_id,query.trainer_id)
         res.status(302).redirect('/course-detail/index')
     }
-
-
 
 
 }

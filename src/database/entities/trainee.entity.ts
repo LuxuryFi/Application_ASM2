@@ -24,6 +24,11 @@ export class Trainee extends Base {
     @Column()
     password: string
 
+    @Column()
+    semester: number
+
     @Column({default:3})
     role_id: number
+
+
 }

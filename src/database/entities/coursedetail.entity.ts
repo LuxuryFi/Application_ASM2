@@ -19,7 +19,6 @@ export class CourseDetail {
    @JoinColumn({ name: "trainer_id" })
    trainer: Trainer
 
-
    @PrimaryColumn()
    course_id: number
 

@@ -10,8 +10,8 @@ export class CourseDetailService {
     constructor(@InjectRepository(CourseDetail) private coursedetailRepository : Repository<CourseDetail>){}
 
     async create(createDetail : CreateDetailDto){
-         let coursedetail = await this.coursedetailRepository.create(createDetail);  
-         await this.coursedetailRepository.save(coursedetail);
+        let coursedetail = await this.coursedetailRepository.create(createDetail);  
+        await this.coursedetailRepository.save(coursedetail);
     }
 
     async findOne(course_id :number, topic_id:number, trainer_id : number) :Promise<CourseDetail> {
@@ -27,6 +27,8 @@ export class CourseDetailService {
             .getOne(); 
     }
 
+
+    
 
 
     async findAll() : Promise<CourseDetail[]>{
