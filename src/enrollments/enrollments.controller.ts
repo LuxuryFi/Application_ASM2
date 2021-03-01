@@ -16,15 +16,9 @@ export class EnrollmentsController {
     @Render('enrollments/index.hbs')
     @Get('index')
     async index(){
-        let enrollments =await this.enrollmentService.findAll();
-        var coursedetails = [];
-
-        for (var i = 0; i < enrollments.length; i++) {
-            let coursedetail = await this.detailService.findOne(enrollments[i].course_id,enrollments[i].topic_id,enrollments[i].trainer_id)
-            coursedetails.push(coursedetail);
-        }
-       
-        return {coursedetails : coursedetails, enrollments: enrollments}
+        let enrollments =await this.detailService.findAll();
+        console.log(enrollments)
+        return {enrollments: enrollments}
     }
 
     @Render('enrollments/create.hbs')
@@ -32,7 +26,6 @@ export class EnrollmentsController {
     async create(){
         let details = await this.detailService.findAll();
         let trainees = await this.traineeService.findAll();
-        console.log(trainees);
         return {details: details, trainees: trainees}
     }
 
@@ -42,11 +35,18 @@ export class EnrollmentsController {
         res.status(302).redirect('/enrollments/create')
     }
 
+    @Render('enrollments/list.hbs')
     @Get('detail')
     async detail(@Res()  res, @Query() query){
-         let trainees = await this.enrollmentService.findAllTrainee(query.course_id,query.topic_id,query.trainer_id);
-       
+        let trainees = await this.enrollmentService.findAllTrainee(query.course_id,query.topic_id,query.trainer_id);
         console.log(trainees)
+        return {trainees : trainees}
+    }
+
+    @Get('delete')
+    async delete(@Res() res, @Query() query){
+        await this.enrollmentService.delete(query.course_id,query.topic_id,query.trainer_id,query.trainee_id)
+        res.status(302).redirect('/enrollments/detail?course_id=' + query.course_id + '&topic_id=' + query.topic_id + '&trainer_id=' +query.trainer_id)
     }
     
 

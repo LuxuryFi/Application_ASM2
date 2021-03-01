@@ -6,7 +6,7 @@ import { Trainee } from "./trainee.entity";
 @Entity()
 export class Enrollment {
     
-    @ManyToOne(type => Trainee, {primary: true})
+    @ManyToOne(type => Trainee, {primary: true,onDelete: 'CASCADE'})
     @JoinColumn({name: 'trainee_id'})
     trainee : Trainee
 

@@ -3,12 +3,16 @@ import { AppModule } from './app.module';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify'
 import { join } from 'path';
 import * as handlebars from 'handlebars';
-;
+import * as fastifyCookie from 'fastify-cookie'
 import * as fs from 'fs';
 import * as layouts from 'handlebars-layouts'
 import { ValidationPipe } from '@nestjs/common';
 import fastifyMultipart from 'fastify-multipart'
-
+import * as passport from 'passport'
+import fastifyPassport from 'fastify-passport'
+import * as fastifySession from 'fastify-session';
+import * as flash from 'fastify-flash'
+import  secureSession from 'fastify-secure-session'
 async function bootstrap() {
 
   const fastifyAdapter = new FastifyAdapter();
@@ -28,6 +32,19 @@ async function bootstrap() {
     templates: join(__dirname, '..', 'views'),
   });
 
+  app.register(secureSession, {
+    secret: 'averylogphrasebiggerthanthirtytwochars',
+    salt: 'mq9hDxBVDbspDR6n',
+    cookie: {
+      secure: false
+    }
+  }); 
+  
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.register(flash);
+
+
   handlebars.registerHelper('selected', function (options, value) {
     if (options == value) {
       return ' selected';
@@ -39,13 +56,11 @@ async function bootstrap() {
   handlebars.registerHelper('printTrainer', function(id, check) {
     check.forEach(element => {
        if (id == element.trainer_id){
-        return check.trainer.element_firstname + ' ' + element.trainer.trainer_lastname
+        return check.trainer.element_firstname + ' ' + element.trainer.trainer_lastname;
       }
     });
     return '';
  });
-
-
 
   handlebars.registerPartial('layout', handlebars.compile(fs.readFileSync(join(__dirname, '..', 'views/layouts.hbs'), 'utf-8')));
 

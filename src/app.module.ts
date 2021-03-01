@@ -13,6 +13,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MulterModule } from '@nestjs/platform-express/multer';
 import { MulterMiddleware } from './trainers/trainers.middleware';
 import { EnrollmentsModule } from './enrollments/enrollments.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [CategoriesModule,
@@ -28,7 +29,10 @@ import { EnrollmentsModule } from './enrollments/enrollments.module';
       dest: '/public/uploads',
     }
     ),
-    EnrollmentsModule ],
+    EnrollmentsModule,
+    AuthModule,  
+
+ ],
   controllers: [AppController],
   providers: [AppService],
 })

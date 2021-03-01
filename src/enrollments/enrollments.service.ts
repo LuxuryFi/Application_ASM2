@@ -34,7 +34,7 @@ export class EnrollmentsService {
         .getMany();
     }
 
-    async findAllTrainee(course_id :number, topic_id:number, trainer_id : number){
+    async findAllTrainee(course_id :number, topic_id:number, trainer_id : number) : Promise<Enrollment[]>{
         return await getConnection().createQueryBuilder().
         select('enrollment', 'course_detail.trainer')
         .from(Enrollment,'enrollment')
@@ -46,7 +46,7 @@ export class EnrollmentsService {
         .where("course.id = :id1", {id1: course_id})
         .andWhere("topic.id = :id2", {id2: topic_id})
         .andWhere("trainer.id = :id3", {id3: trainer_id})
-        .getOneOrFail();
+        .getMany();
     }
     
 
@@ -66,8 +66,14 @@ export class EnrollmentsService {
         .getOneOrFail();
     }
 
-    async delete(id:number){
-        
+    async delete(course_id :number, topic_id:number, trainer_id : number, trainee_id: number){
+        await getConnection().createQueryBuilder()
+        .delete()
+        .from(Enrollment)
+        .andWhere("enrollment.topic_id = :id2", {id2: topic_id})
+        .andWhere("enrollment.trainer_id = :id3", {id3: trainer_id})
+        .andWhere("enrollment.trainee_id = :id4",{id4: trainee_id})
+        .execute()
     }
     
 }

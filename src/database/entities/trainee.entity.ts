@@ -27,8 +27,6 @@ export class Trainee extends Base {
     @Column()
     semester: number
 
-    @Column({default:3})
-    role_id: number
-
-
+    @Column({default:'trainee'})
+    role_id: string
 }

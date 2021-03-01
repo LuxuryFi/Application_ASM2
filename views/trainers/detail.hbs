@@ -1,7 +1,7 @@
 {{#extend "layout"}}
     
     {{#content "body" mode="append"}}
-    <h2>Detail Trainer {{trainer.id}} - {{trainer.trainer_name}}</h2>
+    <h2>Detail Trainer {{trainer.id}} - {{trainer.trainer_firstname}}</h2>
         <table class="table table-bordered">
              <tr>
                 <td>Trainer ID</td>
@@ -9,11 +9,11 @@
             </tr>
             <tr>
                 <td>Firstname</td>
-                <td>{{{trainer.firstname}}}</td>
+                <td>{{{trainer.trainer_firstname}}}</td>
             </tr>
              <tr>
                 <td>Lastname</td>
-                <td>{{{trainer.lastname}}}</td>
+                <td>{{{trainer.trainer_lastname}}}</td>
             </tr>
              <tr>
                 <td>Address</td>
@@ -40,10 +40,8 @@
                     <img width="300px" src="/public/uploads/trainers/{{trainer.avatar}}" alt="">
                 </td>
             </tr>
-        </table>
-        
+        </table>     
         <a href="/trainers/index" class="btn btn-success">Back To Home</a>
         <a href="/trainers/update?id={{trainer.id}}" class="btn btn-secondary">Update</a>
-
     {{/content}}
 {{/extend}}

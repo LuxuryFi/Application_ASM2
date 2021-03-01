@@ -1,9 +1,13 @@
-import { Controller, Get, Post, Query, Render, Req, Res } from '@nestjs/common';
+import { Controller, Get, Post, Query, Render, Req, Res, UseGuards } from '@nestjs/common';
 import { TraineesService } from './trainees.service';
 import * as path from 'path'
 import { CreateTraineeDto } from './dto/create-trainee.dto';
 import * as fs from 'fs';
 import { UpdateTraineeDto } from './dto/update-trainee.dto';
+import { Roles } from 'src/Authorization/roles.decorator';
+import { Role } from 'src/Authorization/role.enum';
+import { RolesGuard } from 'src/Authorization/role.guard';
+import { AuthenticatedGuard } from 'src/common/guard/authenticated.guard';
 
 
 
@@ -11,17 +15,24 @@ import { UpdateTraineeDto } from './dto/update-trainee.dto';
 export class TraineesController {
     constructor(private readonly traineeService : TraineesService){}
 
+    @Roles(Role.Trainee)
+    @UseGuards(RolesGuard)
     @Render('trainees/index.hbs')
     @Get('index')
-    async index(){
+    async index(@Req() req){
         let trainees = await this.traineeService.findAll();
         return {trainees : trainees}
     }
-
+    @Roles(Role.Trainee)
+    @UseGuards(RolesGuard)
+    @Render('trainees/index.hbs')
     @Render('trainees/create.hbs')
     @Get('create')
     create(){}
 
+    @Roles(Role.Trainee)
+    @UseGuards(RolesGuard)
+    @Render('trainees/index.hbs')
     @Post('create')
     async createOne(@Req() req, @Res() res){
         const files = await req.saveRequestFiles();
@@ -52,18 +63,26 @@ export class TraineesController {
     @Render('trainees/detail.hbs')
     @Get('detail')
     async detail(@Query() query){
-        let trainee = this.traineeService.findOne(query.id);
-        return {trainee : trainee}
-    }
-
-    @Render('trainees/update.hbs')
-    @Get('update')
-    async update(@Query() query){
         let trainee = await this.traineeService.findOne(query.id);
         console.log(trainee)
         return {trainee : trainee}
     }
 
+    @Get('delete')
+    async delete(@Res() res, @Query() query){
+        await this.traineeService.delete(query.id);
+        res.status(302).redirect('/trainees/index')
+    }
+
+
+    @Render('trainees/update.hbs')
+    @Get('update')
+    async update(@Query() query){
+        let trainee = await this.traineeService.findOne(query.id);
+        return {trainee : trainee}
+    }
+
+    
     @Post('update')
     async updateOne(@Query() Query,@Res() res, @Req() req){
         const files = await req.saveRequestFiles();        
@@ -72,9 +91,8 @@ export class TraineesController {
         const data = files[0].fields;
         const tmp_file = files[0].filepath
 
-
         try {
-            let avatar = files[0].filepath;
+            let avatar = files[0].filename;
             let old_image = path.join(folder, data.old_image.value)
 
             if (!files[0].filename) avatar = data.old_image.value
@@ -96,8 +114,8 @@ export class TraineesController {
                 avatar   
             );   
                 
-            await this.traineeService.update(updateTrainee);
-            res.status(302).redirect('/trainees/index')
+             await this.traineeService.update(updateTrainee);
+             res.status(302).redirect('/trainees/index')
 
 
         } catch (error) {

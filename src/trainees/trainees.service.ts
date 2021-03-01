@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Trainee } from 'src/database/entities/trainee.entity';
 import { UpdateTrainerDto } from 'src/trainers/dto/update-trainer.dto';
-import { Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { CreateTraineeDto } from './dto/create-trainee.dto';
 import { UpdateTraineeDto } from './dto/update-trainee.dto';
 
@@ -10,6 +10,15 @@ import { UpdateTraineeDto } from './dto/update-trainee.dto';
 export class TraineesService {
     constructor(@InjectRepository(Trainee) private traineeRepository : Repository<Trainee> ){}
 
+    async findByEmail(username : string, password: string){
+        return await getConnection()
+        .createQueryBuilder()
+        .select('trainee')
+        .from(Trainee,'trainee')
+        .where('trainee.trainee_email = :email', {email : username})
+        .andWhere('trainee.password = :password', {password : password})
+        .getOne()
+    }
 
     async findAll(){
         return await this.traineeRepository.find();

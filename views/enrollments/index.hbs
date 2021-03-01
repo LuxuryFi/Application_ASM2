@@ -8,22 +8,17 @@
         <th>Course</th>
         <th>Topic</th>
         <th>Trainer</th>
-        <th>Category</th>
-        <th>Trainee</th>
-        <th>Status</th>
         <th></th>
     </tr>
     {{#each enrollments}}
     <tr>
-        <td>{{course.course_name}}</td>
-        <td>{{topic.topic_name}}</td>
-        <td>{{trainer.trainer_name}}</td>
-        <td>{{trainer.category_id}}</td>
-        <td>{{is_active}}</td>
+        <td><a href="/courses/detail?id={{course.id}}">{{course.course_name}}</a></td>
+        <td><a href="/topics/detail?id={{topic.id}}">{{topic.topic_name}}</a></td>
+        <td><a href="/trainers/detail?id={{trainer.id}}">{{trainer.trainer_firstname}} {{trainer.trainer_lastname}}</a></td>
         <td>
             <center>
                 <a href="/enrollments/detail?course_id={{course.id}}&topic_id={{topic.id}}&trainer_id={{trainer.id}}"><i class="far fa-eye"></i></a>&nbsp;&nbsp;
-                <a href="/enrollments/delete?course_id={{course.id}}&topic_id={{topic.id}}&trainer_id={{trainer.id}}"><i class="far fa-trash"></i></a>&nbsp;&nbsp;
+                <a href="/enrollments/delete?course_id={{course.id}}&topic_id={{topic.id}}&trainer_id={{trainer.id}}"><i class="far fa-trash" onclick="confirm('Delete?')"></i></a>&nbsp;&nbsp;
                 <a href="/enrollments/update?course_id={{course.id}}&topic_id={{topic.id}}&trainer_id={{trainer.id}}"><i class="far fa-pen"></i></a>&nbsp;&nbsp;
             </center>
         </td>
